@@ -2,7 +2,7 @@
 require_once '../includes/session.php';
 require_once '../includes/functions.php';
 requireLogin();
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$conn = getConnection();
 
 // Ambil ID dari URL
 $id = $_GET['id'] ?? 0;
@@ -16,14 +16,13 @@ if (!$barang) {
     exit();
 }
 
-// Proses update data
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $kode_barang = $_POST['kode_barang'];
-    $nama_barang = $_POST['nama_barang'];
-    $varian_barang = $_POST['varian_barang'];
-    $stok_barang = $_POST['stok_barang'];
-    $keterangan = $_POST['keterangan'];
-    $harga_satuan = $_POST['harga_satuan'];
+    $kode_barang = cleanInput($_POST['kode_barang']);
+    $nama_barang = cleanInput($_POST['nama_barang']);
+    $varian_barang = cleanInput($_POST['varian_barang']);
+    $stok_barang = intval($_POST['stok_barang']);
+    $keterangan = cleanInput($_POST['keterangan']);
+    $harga_satuan = intval($_POST['harga_satuan']);
     
     // Gunakan harga_jual dari input user jika ada, jika tidak hitung otomatis
     $harga_jual = $_POST['harga_jual'] ?? calculateHargaJual($harga_satuan, 50);
@@ -179,3 +178,5 @@ document.addEventListener('DOMContentLoaded', function() {
     calculateHargaJual();
 });
 </script>
+
+<?php include '../includes/footer.php'; ?>

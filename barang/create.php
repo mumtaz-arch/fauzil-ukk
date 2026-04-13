@@ -2,7 +2,7 @@
 require_once '../includes/session.php';
 require_once '../includes/functions.php';
 requireLogin();
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$conn = getConnection();
 
 $queryKode = "SELECT kode_barang FROM barang ORDER BY kode_barang DESC LIMIT 1";
 $resultKode = mysqli_query($conn, $queryKode);
@@ -18,12 +18,12 @@ if (mysqli_num_rows($resultKode) > 0) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $kode_barang = $_POST['kode_barang'];
-    $nama_barang = $_POST['nama_barang'];
-    $varian_barang = $_POST['varian_barang'];
-    $stok_barang = $_POST['stok_barang'];
-    $keterangan = $_POST['keterangan'];
-    $harga_satuan = $_POST['harga_satuan'];
+    $kode_barang = cleanInput($_POST['kode_barang']);
+    $nama_barang = cleanInput($_POST['nama_barang']);
+    $varian_barang = cleanInput($_POST['varian_barang']);
+    $stok_barang = intval($_POST['stok_barang']);
+    $keterangan = cleanInput($_POST['keterangan']);
+    $harga_satuan = intval($_POST['harga_satuan']);
     
     // Hitung harga jual otomatis dengan markup 50%
     $harga_jual = calculateHargaJual($harga_satuan, 50);
@@ -136,3 +136,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<?php include '../includes/footer.php'; ?>

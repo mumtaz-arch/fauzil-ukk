@@ -10,16 +10,7 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <!-- Custom CSS -->
-    <link href="assets/css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css.map">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css.map">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grip.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grip.css.map">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grip.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grip.min.css.map">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grip-rtl.css">
+    <link href="<?php echo BASE_URL; ?>/assets/css/custom.css" rel="stylesheet">
     <style>
         .navbar-brand {
             font-weight: bold;

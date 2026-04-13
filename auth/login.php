@@ -1,6 +1,11 @@
 <?php
-session_start();
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../includes/session.php'; // This handles session_start and BASE_URL
+require_once __DIR__ . '/../includes/functions.php';
+
+if (isLoggedIn()) {
+    header('Location: ' . BASE_URL . '/dashboard.php');
+    exit();
+}
 
 $error = '';
 
@@ -8,24 +13,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_user = cleanInput($_POST['nama_user']);
     $password = $_POST['password'];
     
-    require_once __DIR__ . '/../includes/functions.php';
     $user = verifyLogin($nama_user, $password);
     
     if ($user) {
-        // Set session dengan benar
-        $_SESSION['user_id'] = $user['id'];          // ini id_user
-        $_SESSION['nama_user'] = $user['nama_user']; // nama_user dari db
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['nama_user'] = $user['nama_user'];
         $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
         $_SESSION['role'] = $user['role'];
         $_SESSION['login_time'] = time();
         
-        header('Location: ../dashboard.php');
+        header('Location: ' . BASE_URL . '/dashboard.php');
         exit();
     } else {
         $error = 'Nama pengguna atau password salah!';
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -73,13 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="mb-3">
                 <label for="nama_user" class="form-label">Nama Pengguna</label>
                 <input type="text" class="form-control" id="nama_user" name="nama_user" 
-                       value="admin" required placeholder="Masukkan nama pengguna">
+                       required placeholder="Masukkan nama pengguna">
             </div>
             
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" 
-                       value="admin123" required placeholder="Masukkan password">
+                       required placeholder="Masukkan password">
             </div>
             
             <button type="submit" class="btn btn-primary w-100">

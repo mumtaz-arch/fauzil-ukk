@@ -125,11 +125,25 @@ foreach ($transaksi as $trx) {
 
 <style>
     @media print {
-        .btn-toolbar, .input-group, .btn-outline-secondary {
-            display: none;
+        .navbar, .sidebar {
+            display: none !important;
+        }
+        .ms-sm-auto {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex: 0 0 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .btn-toolbar, .input-group, .btn-outline-secondary, label[for="filterTanggal"] {
+            display: none !important;
         }
         .laporan-hari {
             page-break-inside: avoid;
+        }
+        .card {
+            border: none !important;
+            box-shadow: none !important;
         }
     }
 
@@ -181,6 +195,4 @@ foreach ($transaksi as $trx) {
     }
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php include '../includes/footer.php'; ?>

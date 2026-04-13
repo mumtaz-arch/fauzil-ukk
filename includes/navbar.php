@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="sistem-inventaris\dashboard.php">
+        <a class="navbar-brand" href="<?php echo BASE_URL; ?>/dashboard.php">
             <i class="bi bi-box-seam"></i> Sistem Inventaris
         </a>
         
@@ -12,11 +12,11 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <span class="navbar-text text-white me-3">
-                        <i class="bi bi-person-circle"></i> <?php echo $_SESSION['nama_lengkap']; ?>
+                        <i class="bi bi-person-circle"></i> <?php echo htmlspecialchars($_SESSION['nama_lengkap'] ?? 'User'); ?>
                     </span>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-light btn-sm" href="../auth/logout.php">
+                    <a class="btn btn-outline-light btn-sm" href="<?php echo BASE_URL; ?>/auth/logout.php">
                         <i class="bi bi-box-arrow-right"></i> Logout
                     </a>
                 </li>
@@ -32,23 +32,23 @@
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>" href="../dashboard.php">
+                        <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], 'dashboard.php') !== false ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/dashboard.php">
                             <i class="bi bi-speedometer2"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) == 'barang' ? 'active' : ''; ?>" href="../barang/index.php">
+                        <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], '/barang/') !== false ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/barang/index.php">
                             <i class="bi bi-box"></i> Data Barang
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) == 'transaksi' ? 'active' : ''; ?>" href="../transaksi/index.php">
+                        <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], '/transaksi/') !== false ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/transaksi/index.php">
                             <i class="bi bi-arrow-left-right"></i> Transaksi
                         </a>
                     </li>
                     <?php if (isAdmin()): ?>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) == 'Laporan' ? 'active' : ''; ?>" href="../Laporan/index.php">
+                        <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], '/Laporan/') !== false ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/Laporan/index.php">
                             <i class="bi bi-bar-chart"></i> Laporan
                         </a>
                     </li>

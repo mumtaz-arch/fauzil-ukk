@@ -64,3 +64,4 @@ $page_title = 'Data Transaksi';
     </div>
 </div>
 
+<?php include '../includes/footer.php'; ?>

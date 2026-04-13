@@ -1,5 +1,10 @@
 <?php
-session_start();
+// Ensure database config is loaded for BASE_URL
+require_once __DIR__ . '/../config/database.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Cek apakah user sudah login
 function isLoggedIn() {
@@ -10,20 +15,24 @@ function isLoggedIn() {
 function requireLogin() {
     if (!isLoggedIn()) {
         $_SESSION['error'] = 'Silakan login terlebih dahulu!';
-        header('Location: /sistem-inventaris/auth/login.php');
+        header('Location: ' . BASE_URL . '/auth/login.php');
         exit();
     }
 }
 
-// Cek role user (default semua admin karena tidak ada kolom role)
+// Cek role user
 function isAdmin() {
-    return true; // Karena tidak ada kolom role, semua user dianggap admin
+    return isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 }
 
 // Require admin
 function requireAdmin() {
     requireLogin();
-    // Selalu true karena semua user admin
+    if (!isAdmin()) {
+        $_SESSION['error'] = 'Akses ditolak! Anda bukan admin.';
+        header('Location: ' . BASE_URL . '/dashboard.php');
+        exit();
+    }
     return true;
 }
-?>
+?>

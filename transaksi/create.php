@@ -200,3 +200,4 @@ function updateVarianOptions() {
        
 </script>
 
+<?php include '../includes/footer.php'; ?>

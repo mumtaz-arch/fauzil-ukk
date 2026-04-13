@@ -152,11 +152,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     text: 'Barang berhasil dihapus!'
                 };
                 break;
-            case 'delete_error':
+            case 'has_transaction':
+                alertConfig = {
+                    icon: 'warning',
+                    title: 'Ditolak!',
+                    text: 'Barang tidak bisa dihapus karena sudah memiliki riwayat transaksi!'
+                };
+                break;
+            case 'delete_failed':
                 alertConfig = {
                     icon: 'error',
                     title: 'Gagal!',
-                    text: 'Gagal menghapus barang!'
+                    text: 'Gagal menghapus barang dari database!'
                 };
                 break;
         }
@@ -179,3 +186,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+<?php include '../includes/footer.php'; ?>

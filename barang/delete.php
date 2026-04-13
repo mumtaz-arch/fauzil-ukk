@@ -19,10 +19,10 @@ if (!$barang) {
 }
 
 // Cek apakah barang memiliki transaksi
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$conn = getConnection();
 
 // Prepared statement untuk pengecekan
-$stmt = $conn->prepare("SELECT COUNT(*) as count FROM transaksi WHERE barang_id = ?");
+$stmt = $conn->prepare("SELECT COUNT(*) as count FROM transaksi WHERE id_barang = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -30,19 +30,15 @@ $check_data = $result->fetch_assoc();
 $stmt->close();
 
 if ($check_data['count'] > 0) {
-    mysqli_close($conn);
-    header('Location: index.php?message=delete_error');
+    header('Location: index.php?message=has_transaction');
     exit();
 }
 
 // HAPUS BARANG DARI DATABASE dengan prepared statement
-// PERBAIKAN: DELETE FROM barang (nama tabel), bukan id_barang
 $stmt = $conn->prepare("DELETE FROM barang WHERE id_barang = ?");
 $stmt->bind_param("i", $id);
 $delete_result = $stmt->execute();
 $stmt->close();
-
-mysqli_close($conn);
 
 if ($delete_result) {
     header('Location: index.php?message=delete_success');
@@ -50,4 +46,4 @@ if ($delete_result) {
     header('Location: index.php?message=delete_failed');
 }
 exit;
-?>
+?>
